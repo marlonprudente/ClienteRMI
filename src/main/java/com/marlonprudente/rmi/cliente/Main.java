@@ -38,16 +38,10 @@ public class Main {
                 System.out.println(servico + " <<");
             }
             Servidor servidor = (Servidor)servicoNomesRMI.lookup("servidor");
-            servicoNomesRMI.rebind("cliente", cliente);
-            
-            cliente.BuscarPassagens(servidor);
-            cliente.ComprarPassagem(servidor, 1, 50);
-            cliente.BuscarPassagens(servidor);
-            cliente.BuscarHoteis(servidor);
-            if(cliente.RegistrarInteressePassagem(servidor, "SP", "CWB", 10, "cliente")){
-                System.out.println("Deu certo");
-            }
-            Integer id, pId, hId, acentos;
+            servicoNomesRMI.rebind("cliente", cliente);            
+
+            Integer id, pId, hId, acentos, valorMaximo;
+            String de, para, localizacao;
             Date dataCheckIn = null, dataCheckOut = null;
             while(true){
                 System.out.println("1 - Visualizar todas as passagens");
@@ -144,22 +138,95 @@ public class Main {
                         cliente.ComprarPacote(servidor, pId, hId, acentos, dataCheckIn, dataCheckOut);                        
                         break;
                     case 7:
-                        //interesse passagem
+                        System.out.println("Digite o destino (XX): ");
+                        input = scanner.next();
+                        para = input;
+                        System.out.println("Digite a origem (XX): ");
+                        input = scanner.next();
+                        de = input;
+                        System.out.println("Digite o valor maximo que deseja pagar: ");
+                        input = scanner.next();
+                        valorMaximo = Integer.valueOf(input);
+                        System.out.println("Inserindo interesse na passagem...");
+                        cliente.RegistrarInteressePassagem(servidor, para, de, valorMaximo, "cliente");
                         break;
                     case 8:
-                        //remove interesse passagem
+                        System.out.println("Digite o destino (XX): ");
+                        input = scanner.next();
+                        para = input;
+                        System.out.println("Digite a origem (XX): ");
+                        input = scanner.next();
+                        de = input;
+                        System.out.println("Digite o valor maximo que desejava pagar: ");
+                        input = scanner.next();
+                        valorMaximo = Integer.valueOf(input);
+                        System.out.println("Removendo seu interesse na passagem");
+                        cliente.RemoverInteressePassagem(servidor, para, de, valorMaximo, "cliente");
                         break;
                     case 9:
-                        //interesse hotel
+                        System.out.println("Digite a localização do Hotel (XX): ");
+                        input = scanner.next();
+                        para = input;
+                        System.out.println("Digite a quantidade de pessoas: ");
+                        input = scanner.next();
+                        acentos = Integer.valueOf(input);
+                        System.out.println("Digite o valor maximo que deseja pagar: ");
+                        input = scanner.next();
+                        valorMaximo = Integer.valueOf(input);
+                        System.out.println("Registrando interesse em Hotel...");
+                        cliente.RegistrarInteresseQuarto(servidor, para, acentos, valorMaximo, "cliente");
                         break;
                     case 10:
-                        //remove interesse hotel
+                        System.out.println("Digite a localização do Hotel (XX): ");
+                        input = scanner.next();
+                        para = input;
+                        System.out.println("Digite a quantidade de pessoas: ");
+                        input = scanner.next();
+                        acentos = Integer.valueOf(input);
+                        System.out.println("Digite o valor maximo que deseja pagar: ");
+                        input = scanner.next();
+                        valorMaximo = Integer.valueOf(input);
+                        System.out.println("Removendo interesse em Hotel...");
+                        cliente.RemoverInteresseQuarto(servidor, para, acentos, valorMaximo, "cliente");
                         break;
-                    case 11:
+                    case 11:                         
+                        System.out.println("Digite o destino (XX): ");
+                        input = scanner.next();
+                        para = input;
+                        System.out.println("Digite a origem (XX): ");
+                        input = scanner.next();
+                        de = input;
+                        System.out.println("Digite a localizacao do Hotel (XX): ");
+                        input = scanner.next();
+                        localizacao = input;
+                        System.out.println("Digite o valor maximo que deseja pagar: ");
+                        input = scanner.next();
+                        valorMaximo = Integer.valueOf(input);
+                        System.out.println("Digite a quantidade de pessoas: ");
+                        input = scanner.next();
+                        acentos = Integer.valueOf(input);
+                        System.out.println("Registrando interesse em pacote...");
+                        cliente.RegistrarInteressePacote(servidor, para, de, localizacao, valorMaximo, acentos, "cliente");
                         //interesse pacote
                         break;
-                    case 12:
-                        //remove interesse pacote
+                    case 12:                        
+                        System.out.println("Digite o destino (XX): ");
+                        input = scanner.next();
+                        para = input;
+                        System.out.println("Digite a origem (XX): ");
+                        input = scanner.next();
+                        de = input;
+                        System.out.println("Digite a localizacao do Hotel (XX): ");
+                        input = scanner.next();
+                        localizacao = input;
+                        System.out.println("Digite o valor maximo que deseja pagar: ");
+                        input = scanner.next();
+                        valorMaximo = Integer.valueOf(input);
+                        System.out.println("Digite a quantidade de pessoas: ");
+                        input = scanner.next();
+                        acentos = Integer.valueOf(input);
+                        System.out.println("Removendo interesse em pacote: ");
+                        cliente.RemoverInteressePacote(servidor, para, de, localizacao, valorMaximo, acentos, "cliente");
                         break;
                     default:
                         System.out.println("Opção inválida!");
