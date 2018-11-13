@@ -34,15 +34,13 @@ public class Main {
         
         try{
             servicoNomesRMI = LocateRegistry.getRegistry(2000);
-            for(String servico : servicoNomesRMI.list()){
-                System.out.println(servico + " <<");
-            }
             Servidor servidor = (Servidor)servicoNomesRMI.lookup("servidor");
             servicoNomesRMI.rebind("cliente", cliente);            
 
             Integer id, pId, hId, acentos, valorMaximo;
             String de, para, localizacao;
             Date dataCheckIn = null, dataCheckOut = null;
+            
             while(true){
                 System.out.println("1 - Visualizar todas as passagens");
                 System.out.println("2 - Visualizar todos os hoteis");
